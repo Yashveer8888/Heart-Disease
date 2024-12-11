@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('{{ url_for('static', filename='images/heart.jpg') }}') center center/cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            padding: 40px;
+            margin-left: 55%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .container h1 {
+            color: #ff4d4d;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        input, button {
+            width: calc(100% - 30px);
+            padding: 12px 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        input {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6666;
+            transform: translateY(-3px);
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 5px #ff4d4d;
+            border: 1px solid #ff4d4d;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            background: #4CAF50;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #name {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            font-size: 1rem;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Disease Prediction</h1>
+        <form action="/predict" method="POST">
+            <input type="text" name="age" placeholder="Enter Age (in years)" required />
+            <input type="text" name="cp" placeholder="Enter chest pain type (0-3)" required />
+            <input type="text" name="thalach" placeholder="Enter maximum heart rate achieved" required />
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+        <h3 id="prediction-result">Result: {{ prediction_text }}</h3>
+        {% endif %}
+    </div>
+    <div id="name">YASHVEER SINGH</div>
+    <script>
+        // Check if the result element exists on the page
+        const resultElement = document.getElementById("prediction-result");
+
+        // If result exists, hide it after 5 seconds
+        if (resultElement) {
+            setTimeout(() => {
+                resultElement.style.display = "none";
+            }, 5000);  // 5000ms = 5 seconds
+        }
+    </script>
+</body>
+</html>
